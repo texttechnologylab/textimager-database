@@ -21,8 +21,8 @@ public class DBReaderTest {
 	public static void main(String[] args) throws IOException, UIMAException {
 		runPipeline(
 				// getNeo4jReader()
-				// getXMIReader()
-				getBasexReader(),
+				getXMIReader(),
+				//getBasexReader(),
 				// getCassandraReader()
 				//getMongoReader(),
 				createEngine(Counter.class),

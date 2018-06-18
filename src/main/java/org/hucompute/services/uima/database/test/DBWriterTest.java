@@ -15,6 +15,7 @@ import org.hucompute.services.uima.database.basex.BasexWriter;
 import org.hucompute.services.uima.database.mongo.MongoWriter;
 import org.hucompute.services.uima.database.neo4j.Neo4jWriter;
 import org.hucompute.services.uima.database.xmi.XmiReaderModified;
+import org.hucompute.services.uima.database.xmi.XmiWriterModified;
 
 public class DBWriterTest {
 	public static void main(String... args) throws UIMAException, IOException {
@@ -29,9 +30,9 @@ public class DBWriterTest {
 				//getNeo4JWriter()
 				//getMongoWriter()
 				// getCassandraWriter()
-				getBasexWriter()
+				//getBasexWriter()
 				// getMysqlWriter()
-				// getXMIWriter()
+				getXMIWriter()
 		);
 
 	}
@@ -54,6 +55,16 @@ public class DBWriterTest {
 				MongoWriter.PARAM_DB_USER, "",
 				MongoWriter.PARAM_DB_PW, "",				
 				MongoWriter.PARAM_LOG_FILE_LOCATION,new File("dbtest/mongo_with_index.log"));
+	}
+	
+	public static AnalysisEngine getXMIWriter() throws ResourceInitializationException{
+		return createEngine(
+				XmiWriterModified.class, 
+				XmiWriterModified.PARAM_TARGET_LOCATION,"testdata/output",
+				XmiWriterModified.PARAM_USE_DOCUMENT_ID,true,
+				XmiWriterModified.PARAM_OVERWRITE,true,
+				XmiWriterModified.PARAM_LOG_FILE_LOCATION,new File("dbtest/writer/xmi.log")
+				);
 	}
 
 }
