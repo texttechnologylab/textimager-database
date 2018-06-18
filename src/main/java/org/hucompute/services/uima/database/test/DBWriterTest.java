@@ -11,7 +11,9 @@ import org.apache.uima.analysis_engine.AnalysisEngine;
 import org.apache.uima.collection.CollectionReader;
 import org.apache.uima.fit.factory.CollectionReaderFactory;
 import org.apache.uima.resource.ResourceInitializationException;
+import org.hucompute.services.uima.database.basex.BasexWriter;
 import org.hucompute.services.uima.database.mongo.MongoWriter;
+import org.hucompute.services.uima.database.neo4j.Neo4jWriter;
 import org.hucompute.services.uima.database.xmi.XmiReaderModified;
 
 public class DBWriterTest {
@@ -24,14 +26,23 @@ public class DBWriterTest {
 				XmiReaderModified.PARAM_LANGUAGE, "de");
 
 		runPipeline(reader,
-				// getNeo4JWriter()
-				getMongoWriter()
+				//getNeo4JWriter()
+				//getMongoWriter()
 				// getCassandraWriter()
-				// getBasexWriter()
+				getBasexWriter()
 				// getMysqlWriter()
 				// getXMIWriter()
 		);
 
+	}
+	
+	public static AnalysisEngine getBasexWriter() throws ResourceInitializationException{
+		return createEngine(BasexWriter.class, BasexWriter.PARAM_LOG_FILE_LOCATION,new File("dbtest/writer/basex.log"));
+	}
+	
+	public static AnalysisEngine getNeo4JWriter() throws ResourceInitializationException{
+		return createEngine(Neo4jWriter.class,
+				Neo4jWriter.PARAM_LOG_FILE_LOCATION,new File("dbtest/writer/neo4j.log"));
 	}
 	
 	public static AnalysisEngine getMongoWriter() throws ResourceInitializationException{
