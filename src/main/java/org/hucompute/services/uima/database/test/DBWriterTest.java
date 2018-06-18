@@ -28,15 +28,19 @@ public class DBWriterTest {
 				XmiReaderModified.PARAM_LANGUAGE, "de");
 
 		runPipeline(reader,
-				//getNeo4JWriter()
+				getNeo4JWriter()
 				//getMongoWriter()
-				getCassandraWriter()
+				//getCassandraWriter()
 				//getBasexWriter()
-				// getMysqlWriter()
+				//getMysqlWriter()
 				//getXMIWriter()
 		);
 
 	}
+
+	/*public static AnalysisEngine getMysqlWriter() throws ResourceInitializationException{
+		return createEngine(MysqlWriter.class);
+	}*/
 	
 	public static AnalysisEngine getBasexWriter() throws ResourceInitializationException{
 		return createEngine(BasexWriter.class, BasexWriter.PARAM_LOG_FILE_LOCATION,new File("dbtest/writer/basex.log"));
