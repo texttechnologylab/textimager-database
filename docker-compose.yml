@@ -1,37 +1,39 @@
 version: '2'
 
 services:
-  arangodb:
-    build: ./docker/arangodb
-    environment:
-     - ARANGO_ROOT_PASSWORD=root
+#  arangodb:
+#    build: ./docker/arangodb
+#    environment:
+#     - ARANGO_ROOT_PASSWORD=root
 
-  basex:
-    build: ./docker/basex
+#  basex:
+#    build: ./docker/basex
 
-  blazegraph:
-    build: ./docker/blazegraph
-    ports:
-     - "9999:8080"
+#  blazegraph:
+#    build: ./docker/blazegraph
+#    ports:
+#     - "9999:8080"
 
-  cassandra:
-    build: ./docker/cassandra
+#  cassandra:
+#    build: ./docker/cassandra
 
   mongodb:
     build: ./docker/mongodb
-
-  mysql:
-    build: ./docker/mysql
-    environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=uimadatabase
-
-  neo4j:
-    build: ./docker/neo4j
-    environment:
-      - NEO4J_AUTH=none
-
-  solr:
-    build: ./docker/solr
     ports:
-      - "8983:8983"
+      - "27017:27017"
+
+#  mysql:
+#    build: ./docker/mysql
+#    environment:
+#      - MYSQL_ROOT_PASSWORD=root
+#      - MYSQL_DATABASE=uimadatabase
+
+#  neo4j:
+#    build: ./docker/neo4j
+#    environment:
+#      - NEO4J_AUTH=none
+
+#  solr:
+#    build: ./docker/solr
+#    ports:
+#      - "8983:8983"
