@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 
 import org.apache.uima.UIMAException;
+import org.apache.uima.analysis_engine.AnalysisEngine;
 import org.apache.uima.collection.CollectionReader;
 import org.apache.uima.fit.factory.CollectionReaderFactory;
 import org.apache.uima.resource.ResourceInitializationException;
@@ -20,19 +21,27 @@ import de.tudarmstadt.ukp.dkpro.core.io.xmi.XmiWriter;
 
 public class DBReaderTest {
 
-	public static void main(String[] args) throws IOException, UIMAException {
+	public static void runTest(String reader) throws IOException, UIMAException {
 		runPipeline(
-				getNeo4jReader(),
-				//getXMIReader(),
-				//getBasexReader(),
-				// getCassandraReader(),
-				//getMongoReader(),
+				getReader(reader),
 				createEngine(Counter.class),
 				createEngine(XmiWriter.class,
 						XmiWriter.PARAM_TARGET_LOCATION, "testdata/output/",
 						XmiWriter.PARAM_USE_DOCUMENT_ID, true,
 						XmiWriter.PARAM_OVERWRITE, true)
 				);
+	}
+	
+	public static CollectionReader getReader(String reader) throws ResourceInitializationException {
+		switch (reader) {
+		case "XMI": return getXMIReader();
+		//case "Mysql": return getMysqlReader();
+		case "Basex": return getBasexReader();
+		case "Cassandra": return getCassandraReader();
+		case "Mongo": return getMongoReader();
+		case "Neo4j": return getNeo4jReader();
+		}
+		return null;
 	}
 
 	public static CollectionReader getNeo4jReader() throws ResourceInitializationException{

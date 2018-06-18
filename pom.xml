@@ -27,7 +27,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>org.hucompute.services.uima.database.test.DBWriterTest</mainClass>
+                            <mainClass>org.hucompute.services.uima.database.test.DBTest</mainClass>
                         </manifest>
                     </archive>
 

@@ -64,6 +64,7 @@ public class CassandraCollectionReader extends AbstractCollectionReader {
 					)
 					.build();
 			session = cluster.connect("textimager");
+			session.execute("use textimager;");
 			tables = new HashSet<>(Arrays.asList("WikiDataHyponym", "pos", "Lemma", "tokens", "Wikify", "morph", "Sentence", "TagsetDescription", "Paragraph"));
 			System.out.println("Grabing xmis...");
 			rs = session.execute("SELECT * FROM xmi;");

@@ -3,9 +3,9 @@ package org.hucompute.services.uima.database.neo4j.data;
 import org.neo4j.graphdb.RelationshipType;
 
 /**
- * Extension of {@link org.hucompute.services.uima.database.Const} that adds Neo4j specific Relationship types.
+ * Extension of {@link org.hucompute.services.uima.database.neo4j.Const} that adds Neo4j specific Relationship types.
  */
-public class Const extends org.hucompute.services.uima.database.Const{
+public class Const extends org.hucompute.services.uima.database.neo4j.Const{
 
 	/**
 	 * Neo4j relationship types.

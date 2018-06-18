@@ -19,23 +19,28 @@ import org.hucompute.services.uima.database.xmi.XmiReaderModified;
 import org.hucompute.services.uima.database.xmi.XmiWriterModified;
 
 public class DBWriterTest {
-	public static void main(String... args) throws UIMAException, IOException {
-
+	public static void runTest(String writer) throws UIMAException, IOException {
+		
 		CollectionReader reader = CollectionReaderFactory.createReader(
 				XmiReaderModified.class,
 				XmiReaderModified.PARAM_PATTERNS, "[+]**/*.xmi.gz",
 				XmiReaderModified.PARAM_SOURCE_LOCATION, "testdata/biologie_sample",
 				XmiReaderModified.PARAM_LANGUAGE, "de");
 
-		runPipeline(reader,
-				getNeo4JWriter()
-				//getMongoWriter()
-				//getCassandraWriter()
-				//getBasexWriter()
-				//getMysqlWriter()
-				//getXMIWriter()
-		);
+		runPipeline(reader, getWriter(writer));
 
+	}
+	
+	public static AnalysisEngine getWriter(String writer) throws ResourceInitializationException {
+		switch (writer) {
+		case "XMI": return getXMIWriter();
+		//case "Mysql": return getMysqlWriter();
+		case "Basex": return getBasexWriter();
+		case "Cassandra": return getCassandraWriter();
+		case "Mongo": return getMongoWriter();
+		case "Neo4j": return getNeo4JWriter();
+		}
+		return null;
 	}
 
 	/*public static AnalysisEngine getMysqlWriter() throws ResourceInitializationException{

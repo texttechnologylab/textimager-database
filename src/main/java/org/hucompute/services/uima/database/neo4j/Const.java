@@ -1,4 +1,4 @@
-package org.hucompute.services.uima.database;
+package org.hucompute.services.uima.database.neo4j;
 
 /**
  * enum TYPE superclass.

@@ -57,8 +57,6 @@ public interface MDB {
      */
     boolean backup();
 
-    //CalamariFactory getFactory();
-
     Node getNodeById(long lID);
 
     Relationship getRelationShipById(long lID);

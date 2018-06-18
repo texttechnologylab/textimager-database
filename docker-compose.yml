@@ -6,10 +6,10 @@ services:
 #    environment:
 #     - ARANGO_ROOT_PASSWORD=root
 
-#  basex:
-#    build: ./docker/basex
-#    ports:
-#      - "1984:1984"
+  basex:
+    build: ./docker/basex
+    ports:
+      - "1984:1984"
 
 #  blazegraph:
 #    build: ./docker/blazegraph
@@ -21,10 +21,10 @@ services:
     ports:
       - "9042:9042"
 
-#  mongodb:
-#    build: ./docker/mongodb
-#    ports:
-#      - "27017:27017"
+  mongodb:
+    build: ./docker/mongodb
+    ports:
+      - "27017:27017"
 
 #  mysql:
 #    build: ./docker/mysql
