@@ -11,6 +11,7 @@ import org.apache.uima.collection.CollectionReader;
 import org.apache.uima.fit.factory.CollectionReaderFactory;
 import org.apache.uima.resource.ResourceInitializationException;
 import org.hucompute.services.uima.database.basex.BasexCollectionReader;
+import org.hucompute.services.uima.database.cassandra.CassandraCollectionReader;
 import org.hucompute.services.uima.database.mongo.MongoCollectionReader;
 import org.hucompute.services.uima.database.xmi.XmiReaderModified;
 
@@ -36,6 +37,12 @@ public class DBReaderTest {
 	public static CollectionReader getBasexReader() throws ResourceInitializationException{
 		return  CollectionReaderFactory.createReader(BasexCollectionReader.class,
 				BasexCollectionReader.PARAM_LOG_FILE_LOCATION, new File("dbtest/read/basex.log")
+				);
+	}
+
+	public static CollectionReader getCassandraReader() throws ResourceInitializationException{
+		return  CollectionReaderFactory.createReader(CassandraCollectionReader.class,
+				CassandraCollectionReader.PARAM_LOG_FILE_LOCATION, new File("dbtest/read/cassandra.log")
 				);
 	}
 

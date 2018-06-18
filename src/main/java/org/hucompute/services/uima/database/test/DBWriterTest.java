@@ -12,6 +12,7 @@ import org.apache.uima.collection.CollectionReader;
 import org.apache.uima.fit.factory.CollectionReaderFactory;
 import org.apache.uima.resource.ResourceInitializationException;
 import org.hucompute.services.uima.database.basex.BasexWriter;
+import org.hucompute.services.uima.database.cassandra.CassandraWriter;
 import org.hucompute.services.uima.database.mongo.MongoWriter;
 import org.hucompute.services.uima.database.neo4j.Neo4jWriter;
 import org.hucompute.services.uima.database.xmi.XmiReaderModified;
@@ -29,10 +30,10 @@ public class DBWriterTest {
 		runPipeline(reader,
 				//getNeo4JWriter()
 				//getMongoWriter()
-				// getCassandraWriter()
+				getCassandraWriter()
 				//getBasexWriter()
 				// getMysqlWriter()
-				getXMIWriter()
+				//getXMIWriter()
 		);
 
 	}
@@ -44,6 +45,10 @@ public class DBWriterTest {
 	public static AnalysisEngine getNeo4JWriter() throws ResourceInitializationException{
 		return createEngine(Neo4jWriter.class,
 				Neo4jWriter.PARAM_LOG_FILE_LOCATION,new File("dbtest/writer/neo4j.log"));
+	}
+
+	public static AnalysisEngine getCassandraWriter() throws ResourceInitializationException{
+		return createEngine(CassandraWriter.class, CassandraWriter.PARAM_LOG_FILE_LOCATION,new File("dbtest/writer/cassandra.log"));
 	}
 	
 	public static AnalysisEngine getMongoWriter() throws ResourceInitializationException{

@@ -8,19 +8,23 @@ services:
 
 #  basex:
 #    build: ./docker/basex
+#    ports:
+#      - "1984:1984"
 
 #  blazegraph:
 #    build: ./docker/blazegraph
 #    ports:
 #     - "9999:8080"
 
-#  cassandra:
-#    build: ./docker/cassandra
-
-  mongodb:
-    build: ./docker/mongodb
+  cassandra:
+    build: ./docker/cassandra
     ports:
-      - "27017:27017"
+      - "9042:9042"
+
+#  mongodb:
+#    build: ./docker/mongodb
+#    ports:
+#      - "27017:27017"
 
 #  mysql:
 #    build: ./docker/mysql
@@ -32,6 +36,9 @@ services:
 #    build: ./docker/neo4j
 #    environment:
 #      - NEO4J_AUTH=none
+#    volumes:
+#      - ./test/neo4j/data:/data
+#    user: "211481:100"
 
 #  solr:
 #    build: ./docker/solr
