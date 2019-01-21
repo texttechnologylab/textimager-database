@@ -13,8 +13,6 @@ import org.apache.uima.jcas.JCas;
 import org.apache.uima.jcas.tcas.Annotation;
 import org.apache.uima.json.JsonCasSerializer;
 import org.apache.uima.resource.ResourceInitializationException;
-import org.hucompute.services.type.WikiDataHyponym;
-import org.hucompute.services.type.Wikify;
 import org.hucompute.services.uima.database.AbstractWriter;
 
 import com.datastax.driver.core.BatchStatement;
@@ -225,11 +223,11 @@ public class CassandraWriter extends AbstractWriter {
         map.put("start", String.valueOf(annotation.getBegin()));
         map.put("end", String.valueOf(annotation.getEnd()));
         switch (type){
-            case "WikiDataHyponym":
-                WikiDataHyponym wdh = (WikiDataHyponym) annotation;
-                map.put("depth", String.valueOf(wdh.getDepth()));
-
-                break;
+//            case "WikiDataHyponym":
+//                WikiDataHyponym wdh = (WikiDataHyponym) annotation;
+//                map.put("depth", String.valueOf(wdh.getDepth()));
+//
+//                break;
             case "pos":
                 POS pos = (POS) annotation;
                 map.put("value", pos.getPosValue());
@@ -271,11 +269,11 @@ public class CassandraWriter extends AbstractWriter {
                 e.printStackTrace();
                 }
                 return;
-            case "Wikify":
-                Wikify wikify = (Wikify) annotation;
-                map.put("link", wikify.getLink());
-                map.put("title", wikify.getTitle());
-                break;
+//            case "Wikify":
+//                Wikify wikify = (Wikify) annotation;
+//                map.put("link", wikify.getLink());
+//                map.put("title", wikify.getTitle());
+//                break;
             case "morph":
                 m = secondTypePattern.matcher(annotation.getType().toString());
                 if(m.find()){

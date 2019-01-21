@@ -19,59 +19,95 @@
 
 package org.apache.uima.json;
 
-import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.uima.cas.CAS;
-import org.apache.uima.fit.util.JCasUtil;
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.jcas.cas.AnnotationBase;
-import org.apache.uima.jcas.cas.StringArray;
 import org.apache.uima.jcas.tcas.Annotation;
-import org.hucompute.services.type.DocElement;
-import org.hucompute.services.type.WikiDataHyponym;
-import org.hucompute.services.type.Wikify;
-import org.hucompute.services.type.html.ol;
-import org.hucompute.services.type.html.table;
-import org.hucompute.services.type.html.ul;
-import org.hucompute.services.type.segmentation.Div;
-//import org.hucompute.textimager.uima.wiki.WikidataHyponyms;
-import org.json.JSONArray;
-import org.json.JSONException;
+//import org.hucompute.services.type.html.li;
+//import org.hucompute.services.type.html.ul;
+//import org.hucompute.services.type.segmentation.Div;
 import org.json.JSONObject;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParseException;
-import com.google.gson.JsonParser;
-import com.google.gson.JsonSyntaxException;
-
 import de.tudarmstadt.ukp.dkpro.core.api.lexmorph.type.morph.MorphologicalFeatures;
-
-import de.tudarmstadt.ukp.dkpro.core.api.lexmorph.type.pos.*;
+import de.tudarmstadt.ukp.dkpro.core.api.lexmorph.type.pos.ADJ;
+import de.tudarmstadt.ukp.dkpro.core.api.lexmorph.type.pos.ADV;
+import de.tudarmstadt.ukp.dkpro.core.api.lexmorph.type.pos.ART;
+import de.tudarmstadt.ukp.dkpro.core.api.lexmorph.type.pos.CARD;
+import de.tudarmstadt.ukp.dkpro.core.api.lexmorph.type.pos.N;
 import de.tudarmstadt.ukp.dkpro.core.api.lexmorph.type.pos.NN;
+import de.tudarmstadt.ukp.dkpro.core.api.lexmorph.type.pos.NP;
+import de.tudarmstadt.ukp.dkpro.core.api.lexmorph.type.pos.O;
+import de.tudarmstadt.ukp.dkpro.core.api.lexmorph.type.pos.POS;
+import de.tudarmstadt.ukp.dkpro.core.api.lexmorph.type.pos.PP;
+import de.tudarmstadt.ukp.dkpro.core.api.lexmorph.type.pos.PR;
+import de.tudarmstadt.ukp.dkpro.core.api.lexmorph.type.pos.PUNC;
+import de.tudarmstadt.ukp.dkpro.core.api.lexmorph.type.pos.V;
 import de.tudarmstadt.ukp.dkpro.core.api.metadata.type.DocumentMetaData;
 import de.tudarmstadt.ukp.dkpro.core.api.metadata.type.TagsetDescription;
+import de.tudarmstadt.ukp.dkpro.core.api.segmentation.type.Div;
 import de.tudarmstadt.ukp.dkpro.core.api.segmentation.type.Lemma;
 import de.tudarmstadt.ukp.dkpro.core.api.segmentation.type.Paragraph;
 import de.tudarmstadt.ukp.dkpro.core.api.segmentation.type.Sentence;
 import de.tudarmstadt.ukp.dkpro.core.api.segmentation.type.Token;
-import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.*;
+import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.ABBREV;
+import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.ACOMP;
+import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.ADVCL;
+import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.ADVMOD;
+import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.AGENT;
+import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.AMOD;
+import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.APPOS;
+import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.ATTR;
+import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.AUX0;
+import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.AUXPASS;
+import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.CC;
+import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.CCOMP;
+import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.COMPLM;
 import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.CONJ;
+import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.CONJP;
+import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.CONJ_YET;
+import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.COP;
+import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.CSUBJ;
+import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.CSUBJPASS;
+import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.DEP;
+import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.DET;
+import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.DOBJ;
+import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.Dependency;
+import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.EXPL;
+import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.INFMOD;
+import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.IOBJ;
+import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.MARK;
+import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.MEASURE;
+import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.MWE;
+import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.NEG;
+import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.NPADVMOD;
+import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.NSUBJ;
+import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.NSUBJPASS;
+import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.NUM;
+import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.NUMBER;
+import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.PARATAXIS;
+import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.PARTMOD;
+import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.PCOMP;
+import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.POBJ;
+import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.POSS;
+import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.POSSESSIVE;
+import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.PRECONJ;
+import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.PRED;
+import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.PREDET;
+import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.PREP;
+import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.PREPC;
 import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.PRT;
-//import de.tudarmstadt.ukp.dkpro.core.io.jwpl.type.WikipediaLink;
-import org.hucompute.services.type.DocElement;
-import org.hucompute.services.type.WikiDataHyponym;
-import org.hucompute.services.type.Wikify;
-import org.hucompute.services.type.html.*;
+import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.PUNCT;
+import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.PURPCL;
+import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.QUANTMOD;
+import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.RCMOD;
+import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.REF;
+import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.REL;
+import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.ROOT;
+import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.TMOD;
+import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.XCOMP;
+import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.XSUBJ;
 /**
  * <h2>CAS serializer for JSON formats.</h2>
  * <p>Writes a CAS in a JSON format.</p>
@@ -181,13 +217,11 @@ public class JsonCasDeserializer {
 
 
 	private Annotation createAnnotation(JCas cas, JSONObject object, String name){
-		System.out.println(name);
-		if(!object.has("b"))
+		if(!object.has("b") || object.getInt("b") < 0)
 			object.put("b", 0);
 		switch (name) {
 		case "DocumentMetaData":
 
-			System.out.println(name);
 			DocumentMetaData meta = DocumentMetaData.create(cas);
 			meta.setBegin( object.has("b")?object.getInt("b"):0);
 			meta.setEnd( object.has("e")?object.getInt("e"):0);
@@ -405,7 +439,7 @@ public class JsonCasDeserializer {
 			return getDep(new XCOMP(cas), object);
 		case "XSUBJ":
 			return getDep(new XSUBJ(cas), object);
-		/* TODO
+			/* TODO
 		case "Wikify":
 			//			Wikipedia
 			WikipediaLink wiki = new WikipediaLink(cas, object.getInt("b"), object.has("e")?object.getInt("e"):0);
@@ -447,21 +481,22 @@ public class JsonCasDeserializer {
 				e.printStackTrace();
 			}
 			return null;
-		*/
-		case "ul":
-			ul ul= new ul(cas, object.getInt("b"), object.has("e")?object.getInt("e"):0);
-			annotations.put(object.getInt("xid"), ul);
-			return ul;
-		case "li":
-			li li= new li(cas, object.getInt("b"), object.has("e")?object.getInt("e"):0);
-			annotations.put(object.getInt("xid"), li);
-			return li;
-			
+			 */
+//		case "ul":
+//			ul ul= new ul(cas, object.getInt("b"), object.has("e")?object.getInt("e"):0);
+//			annotations.put(object.getInt("xid"), ul);
+//			return ul;
+//		case "li":
+//			li li= new li(cas, object.getInt("b"), object.has("e")?object.getInt("e"):0);
+//			annotations.put(object.getInt("xid"), li);
+//			return li;
+
 		case "Div":
-			System.out.println(object);
 			Div div = new Div(cas, object.getInt("b"), object.has("e")?object.getInt("e"):0);
-			div.setId( object.getString("id"));
-			div.setTyp(object.getString("divType"));
+			if(object.has("id"))
+				div.setId( object.getString("id"));
+			if(object.has("divType"))
+				div.setDivType(object.getString("divType"));
 			annotations.put(object.getInt("xid"), div);
 			return div;
 		default:

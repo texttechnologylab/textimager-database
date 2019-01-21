@@ -16,42 +16,9 @@
 					<target>1.8</target>
 				</configuration>
 			</plugin>
-			
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>2.4.1</version>
-                <configuration>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
-                    <archive>
-                        <manifest>
-                            <mainClass>org.hucompute.services.uima.database.test.DBTest</mainClass>
-                        </manifest>
-                    </archive>
-
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>make-assembly</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
 		</plugins>
 	</build>
 		
-	<distributionManagement>
-		<snapshotRepository>
-			<id>snapshots</id>
-			<name>alba-snapshots</name>
-			<url>http://service.hucompute.org/artifactory/libs-snapshot-local</url>
-		</snapshotRepository>
-	</distributionManagement>
 	
 	<properties>
   		<dkpro.jwpl.version>1.1.0</dkpro.jwpl.version>
@@ -69,13 +36,6 @@
 	  </dependencies>
 	</dependencyManagement>
 	
-	<repositories>
-		<repository>
-			<id>snapshots-hucompute</id>
-			<url>http://service.hucompute.org/artifactory/libs-snapshot</url>
-		</repository>
-	</repositories>
-	
 	<dependencies>
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -91,16 +51,6 @@
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>1.2.17</version>
-		</dependency>
-		<dependency>
-			<groupId>org.hucompute.services</groupId>
-			<artifactId>services-types</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>org.hucompute</groupId>
-			<artifactId>utilities</artifactId>
-			<version>0.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.json</groupId>

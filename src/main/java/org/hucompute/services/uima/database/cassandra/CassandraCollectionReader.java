@@ -18,8 +18,6 @@ import org.apache.uima.collection.CollectionException;
 import org.apache.uima.fit.descriptor.ConfigurationParameter;
 import org.apache.uima.resource.ResourceInitializationException;
 import org.apache.uima.util.Progress;
-import org.hucompute.services.type.WikiDataHyponym;
-import org.hucompute.services.type.Wikify;
 import org.hucompute.services.uima.database.AbstractCollectionReader;
 
 
@@ -131,16 +129,16 @@ public class CassandraCollectionReader extends AbstractCollectionReader {
 			//prelim work
 
 			switch (table){
-			case "WikiDataHyponym":
-				try {
-					WikiDataHyponym wdh = new WikiDataHyponym(aCAS.getJCas(),Integer.valueOf(begin), Integer.valueOf(end));
-					wdh.setDepth(Integer.valueOf(row.getString("depth")));
-					wdh.addToIndexes(aCAS.getJCas());
-				} catch (CASException e) {
-					e.printStackTrace();
-				}
-
-				break;
+//			case "WikiDataHyponym":
+//				try {
+//					WikiDataHyponym wdh = new WikiDataHyponym(aCAS.getJCas(),Integer.valueOf(begin), Integer.valueOf(end));
+//					wdh.setDepth(Integer.valueOf(row.getString("depth")));
+//					wdh.addToIndexes(aCAS.getJCas());
+//				} catch (CASException e) {
+//					e.printStackTrace();
+//				}
+//
+//				break;
 			case "pos":
 				try {
 					POS pos = new POS(aCAS.getJCas(),Integer.valueOf(begin), Integer.valueOf(end));
@@ -167,15 +165,15 @@ public class CassandraCollectionReader extends AbstractCollectionReader {
 					e.printStackTrace();
 				}
 				break;
-			case "Wikify":
-				try {
-					Wikify wikify = new Wikify(aCAS.getJCas(),Integer.valueOf(begin), Integer.valueOf(end));
-					wikify.setLink(row.getString("link"));
-					wikify.setTitle(row.getString("title"));
-					wikify.addToIndexes(aCAS.getJCas());
-				} catch (CASException e) {
-					e.printStackTrace();
-				}
+//			case "Wikify":
+//				try {
+//					Wikify wikify = new Wikify(aCAS.getJCas(),Integer.valueOf(begin), Integer.valueOf(end));
+//					wikify.setLink(row.getString("link"));
+//					wikify.setTitle(row.getString("title"));
+//					wikify.addToIndexes(aCAS.getJCas());
+//				} catch (CASException e) {
+//					e.printStackTrace();
+//				}
 			case "Sentence":
 				try {
 					Sentence sentence = new Sentence(aCAS.getJCas(),Integer.valueOf(begin), Integer.valueOf(end));
