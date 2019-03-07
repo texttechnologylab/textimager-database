@@ -25,6 +25,7 @@ import java.util.HashMap;
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.jcas.cas.AnnotationBase;
 import org.apache.uima.jcas.tcas.Annotation;
+import org.hucompute.textimager.uima.type.category.CategoryCoveredTagged;
 //import org.hucompute.services.type.html.li;
 //import org.hucompute.services.type.html.ul;
 //import org.hucompute.services.type.segmentation.Div;
@@ -108,6 +109,7 @@ import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.ROOT;
 import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.TMOD;
 import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.XCOMP;
 import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.XSUBJ;
+import de.tudarmstadt.ukp.wikipedia.api.CategoryTitleComparator;
 /**
  * <h2>CAS serializer for JSON formats.</h2>
  * <p>Writes a CAS in a JSON format.</p>
@@ -482,14 +484,14 @@ public class JsonCasDeserializer {
 			}
 			return null;
 			 */
-//		case "ul":
-//			ul ul= new ul(cas, object.getInt("b"), object.has("e")?object.getInt("e"):0);
-//			annotations.put(object.getInt("xid"), ul);
-//			return ul;
-//		case "li":
-//			li li= new li(cas, object.getInt("b"), object.has("e")?object.getInt("e"):0);
-//			annotations.put(object.getInt("xid"), li);
-//			return li;
+			//		case "ul":
+			//			ul ul= new ul(cas, object.getInt("b"), object.has("e")?object.getInt("e"):0);
+			//			annotations.put(object.getInt("xid"), ul);
+			//			return ul;
+			//		case "li":
+			//			li li= new li(cas, object.getInt("b"), object.has("e")?object.getInt("e"):0);
+			//			annotations.put(object.getInt("xid"), li);
+			//			return li;
 
 		case "Div":
 			Div div = new Div(cas, object.getInt("b"), object.has("e")?object.getInt("e"):0);
@@ -499,6 +501,15 @@ public class JsonCasDeserializer {
 				div.setDivType(object.getString("divType"));
 			annotations.put(object.getInt("xid"), div);
 			return div;
+		case "CategoryCoveredTagged":
+			CategoryCoveredTagged categoryCoveredTagged = new CategoryCoveredTagged(cas, object.getInt("b"), object.has("e")?object.getInt("e"):0);
+			if(object.has("value"))
+				categoryCoveredTagged.setValue(object.getString("value"));
+			if(object.has("score"))
+				categoryCoveredTagged.setScore(object.getDouble("score"));
+			if(object.has("tags"))
+				categoryCoveredTagged.setTags(object.getString("tags"));
+			return categoryCoveredTagged;
 		default:
 			return null;
 		}
