@@ -7,17 +7,16 @@ import java.io.File;
 import java.io.IOException;
 
 import org.apache.uima.UIMAException;
-import org.apache.uima.analysis_engine.AnalysisEngine;
 import org.apache.uima.collection.CollectionReader;
 import org.apache.uima.fit.factory.CollectionReaderFactory;
 import org.apache.uima.resource.ResourceInitializationException;
+import org.dkpro.core.io.xmi.XmiWriter;
 import org.hucompute.services.uima.database.basex.BasexCollectionReader;
 import org.hucompute.services.uima.database.cassandra.CassandraCollectionReader;
 import org.hucompute.services.uima.database.mongo.MongoCollectionReader;
 import org.hucompute.services.uima.database.neo4j.Neo4jCollectionReader;
 import org.hucompute.services.uima.database.xmi.XmiReaderModified;
 
-import de.tudarmstadt.ukp.dkpro.core.io.xmi.XmiWriter;
 
 public class DBReaderTest {
 

@@ -19,10 +19,10 @@ import org.apache.uima.collection.CollectionException;
 import org.apache.uima.fit.descriptor.ConfigurationParameter;
 import org.apache.uima.fit.descriptor.TypeCapability;
 import org.apache.uima.resource.ResourceInitializationException;
+import org.dkpro.core.api.io.ResourceCollectionReaderBase;
+import org.dkpro.core.api.resources.CompressionUtils;
 import org.xml.sax.SAXException;
 
-import de.tudarmstadt.ukp.dkpro.core.api.io.ResourceCollectionReaderBase;
-import de.tudarmstadt.ukp.dkpro.core.api.resources.CompressionUtils;
 
 /**
  * Reader for UIMA XMI files.

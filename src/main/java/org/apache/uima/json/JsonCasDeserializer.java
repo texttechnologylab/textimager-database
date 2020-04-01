@@ -32,19 +32,21 @@ import org.hucompute.textimager.uima.type.category.CategoryCoveredTagged;
 import org.json.JSONObject;
 
 import de.tudarmstadt.ukp.dkpro.core.api.lexmorph.type.morph.MorphologicalFeatures;
-import de.tudarmstadt.ukp.dkpro.core.api.lexmorph.type.pos.ADJ;
-import de.tudarmstadt.ukp.dkpro.core.api.lexmorph.type.pos.ADV;
-import de.tudarmstadt.ukp.dkpro.core.api.lexmorph.type.pos.ART;
-import de.tudarmstadt.ukp.dkpro.core.api.lexmorph.type.pos.CARD;
-import de.tudarmstadt.ukp.dkpro.core.api.lexmorph.type.pos.N;
-import de.tudarmstadt.ukp.dkpro.core.api.lexmorph.type.pos.NN;
-import de.tudarmstadt.ukp.dkpro.core.api.lexmorph.type.pos.NP;
-import de.tudarmstadt.ukp.dkpro.core.api.lexmorph.type.pos.O;
 import de.tudarmstadt.ukp.dkpro.core.api.lexmorph.type.pos.POS;
-import de.tudarmstadt.ukp.dkpro.core.api.lexmorph.type.pos.PP;
-import de.tudarmstadt.ukp.dkpro.core.api.lexmorph.type.pos.PR;
-import de.tudarmstadt.ukp.dkpro.core.api.lexmorph.type.pos.PUNC;
-import de.tudarmstadt.ukp.dkpro.core.api.lexmorph.type.pos.V;
+import de.tudarmstadt.ukp.dkpro.core.api.lexmorph.type.pos.POS_ADJ;
+import de.tudarmstadt.ukp.dkpro.core.api.lexmorph.type.pos.POS_ADV;
+import de.tudarmstadt.ukp.dkpro.core.api.lexmorph.type.pos.POS_CONJ;
+import de.tudarmstadt.ukp.dkpro.core.api.lexmorph.type.pos.POS_DET;
+import de.tudarmstadt.ukp.dkpro.core.api.lexmorph.type.pos.POS_NOUN;
+import de.tudarmstadt.ukp.dkpro.core.api.lexmorph.type.pos.POS_NUM;
+import de.tudarmstadt.ukp.dkpro.core.api.lexmorph.type.pos.POS_PART;
+import de.tudarmstadt.ukp.dkpro.core.api.lexmorph.type.pos.POS_PRON;
+import de.tudarmstadt.ukp.dkpro.core.api.lexmorph.type.pos.POS_PROPN;
+import de.tudarmstadt.ukp.dkpro.core.api.lexmorph.type.pos.POS_PUNCT;
+import de.tudarmstadt.ukp.dkpro.core.api.lexmorph.type.pos.POS_VERB;
+import de.tudarmstadt.ukp.dkpro.core.api.lexmorph.type.pos.POS_X;
+import de.tudarmstadt.ukp.dkpro.core.api.lexmorph.type.pos.tweet.POS_NNV;
+import de.tudarmstadt.ukp.dkpro.core.api.lexmorph.type.pos.tweet.POS_NPV;
 import de.tudarmstadt.ukp.dkpro.core.api.metadata.type.DocumentMetaData;
 import de.tudarmstadt.ukp.dkpro.core.api.metadata.type.TagsetDescription;
 import de.tudarmstadt.ukp.dkpro.core.api.segmentation.type.Div;
@@ -110,6 +112,10 @@ import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.TMOD;
 import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.XCOMP;
 import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.XSUBJ;
 import de.tudarmstadt.ukp.wikipedia.api.CategoryTitleComparator;
+
+
+
+
 /**
  * <h2>CAS serializer for JSON formats.</h2>
  * <p>Writes a CAS in a JSON format.</p>
@@ -272,39 +278,36 @@ public class JsonCasDeserializer {
 			/*
 			 * POS Types
 			 */
-		case "ADJ":
-			return getPos(new ADJ(cas), object);
-		case "ADV":
-			return getPos(new ADV(cas), object);
-		case "ART":
-			return getPos(new ART(cas), object);
-		case "CARD":
-			return getPos(new CARD(cas), object);
-		case "pos:CONJ":
-			return getPos(new de.tudarmstadt.ukp.dkpro.core.api.lexmorph.type.pos.CONJ(cas), object);
-		case "pos2:CONJ":
-			return getPos(new de.tudarmstadt.ukp.dkpro.core.api.lexmorph.type.pos.CONJ(cas), object);
-		case "N":
-			return getPos(new N(cas), object);
-		case "NP":
-			return getPos(new NP(cas), object);
-		case "O":
-			return getPos(new O(cas), object);
+			
+			
+		case "POS_ADJ":
+			return getPos(new POS_ADJ(cas), object);
+		case "POS_ADP":
+			return getPos(new POS(cas), object);
+		case "POS_ADV":
+			return getPos(new POS_ADV(cas), object);
+		case "POS_CONJ":
+			return getPos(new POS_CONJ(cas), object);
+		case "POS_DET":
+			return getPos(new POS_DET(cas), object);
+		case "POS_NOUN":
+			return getPos(new POS_NOUN(cas), object);
+		case "POS_NUM":
+			return getPos(new POS_NUM(cas), object);	
+		case "POS_PRON":
+			return getPos(new POS_PRON(cas), object);		
+		case "POS_PROPN":
+			return getPos(new POS_PROPN(cas), object);				
+		case "POS_PUNCT":
+			return getPos(new POS_PUNCT(cas), object);			
+		case "POS_VERB":
+			return getPos(new POS_VERB(cas), object);		
+		case "POS_NPV":
+			return getPos(new POS_NPV(cas), object);
+		case "POS_X":
+			return getPos(new POS_X(cas), object);
 		case "POS":
-			return getPos(new POS(cas), object);				
-		case "PP":
-			return getPos(new PP(cas), object);				
-		case "PR":
-			return getPos(new PR(cas), object);				
-		case "PUNC":
-			return getPos(new PUNC(cas), object);				
-		case "V":
-			return getPos(new V(cas), object);	
-		case "pos:NN":
-			return getPos(new NN(cas), object);
-		case "pos2:NN":
-			return getPos(new NN(cas), object);
-
+			return getPos(new POS(cas), object);			
 			/*
 			 * Dependency Types
 			 */
@@ -344,7 +347,7 @@ public class JsonCasDeserializer {
 			if(object.has("DependencyType"))
 				return getDep(new CONJ(cas), object);
 			else
-				return getPos(new de.tudarmstadt.ukp.dkpro.core.api.lexmorph.type.pos.CONJ(cas), object);
+				return getPos(new POS_CONJ(cas), object);
 		case "CONJ_YET":
 			return getDep(new CONJ_YET(cas), object);
 		case "CONJP":
@@ -383,7 +386,7 @@ public class JsonCasDeserializer {
 			if(object.has("DependencyType"))
 				return getDep(new de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.NN(cas), object);
 			else
-				return getPos(new NN(cas), object);
+				return getPos(new POS_NOUN(cas), object);
 		case "NPADVMOD":
 			return getDep(new NPADVMOD(cas), object);
 		case "NSUBJ":
@@ -420,7 +423,7 @@ public class JsonCasDeserializer {
 			if(object.has("DependencyType"))
 				return getDep(new PRT(cas), object);
 			else
-				return getPos(new de.tudarmstadt.ukp.dkpro.core.api.lexmorph.type.pos.PRT(cas), object);
+				return getPos(new POS_PART(cas), object);
 		case "PUNCT":
 			return getDep(new PUNCT(cas), object);
 		case "PURPCL":
