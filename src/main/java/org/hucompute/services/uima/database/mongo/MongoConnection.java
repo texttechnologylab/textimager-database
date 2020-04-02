@@ -71,7 +71,7 @@ public class MongoConnection {
 //			m.getDatabaseNames();// to test connection
 //			db = m.getDB(dbName);
 			MongoCredential credential = MongoCredential.createScramSha1Credential(user,
-					"admin",
+					this.dbName,
 					pw.toCharArray());
 			
 			System.out.println(credential);
